@@ -1,9 +1,11 @@
 package ru.atisot.galactmoney;
 
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import ru.atisot.galactmoney.locale.Locale;
+import ru.atisot.galactmoney.papi.GalactMoneyExpansion;
 
 import java.util.logging.Logger;
 
@@ -28,6 +30,10 @@ public class GalactMoney extends JavaPlugin {
         }
 
         this.getCommand("galact").setExecutor(new CommandManager(this));
+
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
+            new GalactMoneyExpansion(this).register();
+        }
     }
 
     @Override

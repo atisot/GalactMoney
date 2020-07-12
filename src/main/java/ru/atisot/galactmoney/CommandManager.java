@@ -1,6 +1,7 @@
 package ru.atisot.galactmoney;
 
 import net.milkbowl.vault.economy.EconomyResponse;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -78,9 +79,9 @@ public class CommandManager implements CommandExecutor {
         } else if((sender instanceof Player) && arg.equalsIgnoreCase(sender.getName())) {
             sendMessage(sender, plugin.getLocale().getString("balance.you", format("%.2f", DataBase.getBalance(sender.getName())), Config.getCurrencySign()));
         } else if(!(sender instanceof Player) || sender.hasPermission("galactmoney.balance.other")) {
-            Player player2 = plugin.getServer().getPlayer(arg);
+            OfflinePlayer player2 = plugin.getServer().getOfflinePlayer(arg);
             if(player2 != null) {
-                sendMessage(sender, plugin.getLocale().getString("balance.other", player2.getDisplayName(), format("%.2f", DataBase.getBalance(player2.getName())), Config.getCurrencySign()));
+                sendMessage(sender, plugin.getLocale().getString("balance.other", player2.getName(), format("%.2f", DataBase.getBalance(player2.getName())), Config.getCurrencySign()));
             } else {
                 sendMessage(sender, plugin.getLocale().getString("player.not_found", arg));
             }

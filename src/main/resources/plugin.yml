@@ -4,6 +4,7 @@ main: ru.atisot.galactmoney.GalactMoney
 api-version: 1.7.10
 prefix: GM
 depend: [Vault]
+softdepend: [PlaceholderAPI]
 authors: [Bagomot]
 website: https://atisot.ru
 commands:
