@@ -31,8 +31,10 @@ public class GalactMoney extends JavaPlugin {
 
         this.getCommand("galact").setExecutor(new CommandManager(this));
 
-        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null && Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
             new GalactMoneyExpansion(this).register();
+        } else {
+            logger().info("Could not find PlaceholderAPI! Plugin placeholders can not work without it!");
         }
     }
 
