@@ -10,7 +10,7 @@ public class Config {
     private static String   dbTable = "test";
     private static String   dbBalanceColumn = "balance";
     private static String   dbUsernameColumn = "name";
-    private static String   currencySign = "G";
+    private static String   currencySign = "₲";
     private static double   exchangeRate = 100.00;
     private static String   locale = "en_US";
     private static String   prefix;

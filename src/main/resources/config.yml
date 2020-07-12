@@ -12,5 +12,5 @@ connect:
   username_column: name
 # Galact currency settings
 currency:
-  sign: G
+  sign: ₲
   course: 100.00 # exchange rate per 1 of this currency
