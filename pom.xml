@@ -70,14 +70,8 @@
             <groupId>org.bukkit</groupId>
             <artifactId>craftbukkit</artifactId>
             <version>1.7.10-R0.1-SNAPSHOT</version>
-            <scope>system</scope>
+            <scope>provided</scope>
             <systemPath>${project.basedir}/lib/craftbukkit-1.7.10-R0.1-20140808.005431-8.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>18.0</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
