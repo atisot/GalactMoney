@@ -1,0 +1,16 @@
+# DataBase setting
+prefix: "&4[GalactMoney]&f "
+lang: en_US
+connect:
+  host: localhost
+  port: 3306
+  username: root
+  password: ''
+  dbname: test
+  table: test_table
+  balance_column: balance
+  username_column: name
+# Galact currency settings
+currency:
+  sign: G
+  course: 100 # exchange rate per 1 of this currency

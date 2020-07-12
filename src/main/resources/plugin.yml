@@ -1,0 +1,11 @@
+name: GalactMoney
+version: ${project.version}
+main: ru.atisot.galactmoney.GalactMoney
+api-version: 1.7.10
+prefix: GM
+depend: [Vault]
+authors: [Bagomot]
+website: https://atisot.ru
+commands:
+  galact:
+    aliases: gal
