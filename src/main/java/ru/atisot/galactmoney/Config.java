@@ -11,7 +11,7 @@ public class Config {
     private static String   dbBalanceColumn = "balance";
     private static String   dbUsernameColumn = "name";
     private static String   currencySign = "G";
-    private static int      currencyCourse = 100;
+    private static double   currencyCourse = 100.0;
     private static String   locale = "en_US";
     private static String   prefix;
 
@@ -82,7 +82,7 @@ public class Config {
         if(!plugin.getConfig().isSet("currency.course")) {
             plugin.getConfig().set("currency.course", currencyCourse);
         } else {
-            currencyCourse = plugin.getConfig().getInt("currency.course");
+            currencyCourse = plugin.getConfig().getDouble("currency.course");
         }
 
         plugin.saveConfig();
@@ -132,7 +132,7 @@ public class Config {
         return currencySign;
     }
 
-    public static int getCurrencyCourse() {
+    public static double getCurrencyCourse() {
         return currencyCourse;
     }
 }
