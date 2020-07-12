@@ -18,11 +18,11 @@ public class Config {
     public Config(GalactMoney plugin) {
         this.plugin = plugin;
         this.init();
-        prefix = "[" + plugin.getDescription().getName() + "] ";
         this.plugin.logger().info("[" + plugin.getDescription().getName() + "]: Plugin has been initialized.");
     }
 
     private void init() {
+        prefix = "[" + plugin.getDescription().getName() + "] ";
         if(!plugin.getConfig().isSet("prefix")) {
             plugin.getConfig().set("prefix", prefix);
         } else {

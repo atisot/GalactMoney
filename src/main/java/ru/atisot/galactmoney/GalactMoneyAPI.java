@@ -1,10 +1,10 @@
 package ru.atisot.galactmoney;
 
-import org.bukkit.entity.Player;
+import org.bukkit.OfflinePlayer;
 import ru.atisot.galactmoney.base.DataBase;
 
 public class GalactMoneyAPI {
-    public static double getBalance(Player player) {
+    public static double getBalance(OfflinePlayer player) {
         return DataBase.getBalance(player.getName());
     }
     public static String getCurrencySign() {
