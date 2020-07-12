@@ -74,10 +74,10 @@ public class Config {
             dbUsernameColumn = plugin.getConfig().getString("connect.username_column");
         }
 
-        if(!plugin.getConfig().isSet("currency.sign")) {
-            plugin.getConfig().set("currency.sign", currencySign);
+        if(!plugin.getConfig().isSet("sign")) {
+            plugin.getConfig().set("sign", currencySign);
         } else {
-            currencySign = plugin.getConfig().getString("currency.sign");
+            currencySign = plugin.getConfig().getString("sign");
         }
         if(!plugin.getConfig().isSet("exchange.rate")) {
             plugin.getConfig().set("exchange.rate", exchangeRate);
