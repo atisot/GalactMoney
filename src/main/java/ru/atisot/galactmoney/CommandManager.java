@@ -156,7 +156,7 @@ public class CommandManager implements CommandExecutor {
                 plugin.config().save();
                 sendMessage(sender, plugin.getLocale().getString("exchange.rate.set", format("%.2f", rate)));
             } else sendMessage(sender, plugin.getLocale().getString("error.invalid_number"));
-        } sendMessage(sender, plugin.getLocale().getString("error.not_permission"));
+        } else sendMessage(sender, plugin.getLocale().getString("error.not_permission"));
     }
 
     private void sendMessage(CommandSender sender, String msg)
