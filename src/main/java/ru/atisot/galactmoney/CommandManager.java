@@ -60,7 +60,9 @@ public class CommandManager implements CommandExecutor {
         String[] help = {
                 plugin.getLocale().getString("help.balance"),
                 plugin.getLocale().getString("help.rate"),
-                plugin.getLocale().getString("help.exchange")
+                plugin.getLocale().getString("help.exchange"),
+                plugin.getLocale().getString("help.reload"),
+                plugin.getLocale().getString("help.setrate")
         };
 
         sendMessage(sender, help);

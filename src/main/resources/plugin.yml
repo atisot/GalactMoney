@@ -1,8 +1,7 @@
 name: GalactMoney
 version: ${project.version}
 main: ru.atisot.galactmoney.GalactMoney
-api-version: 1.7.10
-prefix: GM
+prefix: GalactMoney
 depend: [Vault]
 softdepend: [PlaceholderAPI]
 authors: [Bagomot]
