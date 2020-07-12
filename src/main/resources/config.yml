@@ -13,4 +13,4 @@ connect:
 # Galact currency settings
 currency:
   sign: G
-  course: 100 # exchange rate per 1 of this currency
+  course: 100.00 # exchange rate per 1 of this currency

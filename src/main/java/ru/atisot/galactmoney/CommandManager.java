@@ -83,7 +83,7 @@ public class CommandManager implements CommandExecutor {
     }
 
     private void viewCourse(Player player) {
-        sendMessage(player, plugin.getLocale().getString("course", Config.getCurrencySign(), format("%d", Config.getCurrencyCourse())));
+        sendMessage(player, plugin.getLocale().getString("course", Config.getCurrencySign(), format("%.2f", Config.getCurrencyCourse())));
     }
 
     private void exchangeCurrency(Player player, String arg) {
