@@ -79,7 +79,7 @@ public class CommandManager implements CommandExecutor {
             sendMessage(sender, plugin.getLocale().getString("balance.you", format("%.2f", DataBase.getBalance(sender.getName())), Config.getCurrencySign()));
         } else if(!(sender instanceof Player) || sender.hasPermission("galactmoney.balance.other")) {
             Player player2 = plugin.getServer().getPlayer(arg);
-            if(!player2.isEmpty()) {
+            if(player2 != null) {
                 sendMessage(sender, plugin.getLocale().getString("balance.other", player2.getDisplayName(), format("%.2f", DataBase.getBalance(player2.getName())), Config.getCurrencySign()));
             } else {
                 sendMessage(sender, plugin.getLocale().getString("player.not_found", arg));
