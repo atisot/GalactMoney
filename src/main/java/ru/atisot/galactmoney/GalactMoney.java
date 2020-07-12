@@ -58,4 +58,8 @@ public class GalactMoney extends JavaPlugin {
     public Locale getLocale() {
         return locale;
     }
+
+    public Config config() {
+        return config;
+    }
 }
