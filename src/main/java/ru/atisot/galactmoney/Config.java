@@ -11,7 +11,7 @@ public class Config {
     private static String   dbBalanceColumn = "balance";
     private static String   dbUsernameColumn = "name";
     private static String   currencySign = "G";
-    private static double   currencyCourse = 100.0;
+    private static double   exchangeRate = 100.00;
     private static String   locale = "en_US";
     private static String   prefix;
 
@@ -79,10 +79,10 @@ public class Config {
         } else {
             currencySign = plugin.getConfig().getString("currency.sign");
         }
-        if(!plugin.getConfig().isSet("currency.course")) {
-            plugin.getConfig().set("currency.course", currencyCourse);
+        if(!plugin.getConfig().isSet("exchange.rate")) {
+            plugin.getConfig().set("exchange.rate", exchangeRate);
         } else {
-            currencyCourse = plugin.getConfig().getDouble("currency.course");
+            exchangeRate = plugin.getConfig().getDouble("exchange.rate");
         }
 
         plugin.saveConfig();
@@ -132,7 +132,19 @@ public class Config {
         return currencySign;
     }
 
-    public static double getCurrencyCourse() {
-        return currencyCourse;
+    public static double getExchangeRate() {
+        return exchangeRate;
+    }
+
+    public static void setExchangeRate(double rate) {
+        exchangeRate = rate;
+    }
+
+    public void save() {
+        plugin.saveConfig();
+    }
+
+    public void reload() {
+        init();
     }
 }

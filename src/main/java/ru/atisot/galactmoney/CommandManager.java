@@ -19,12 +19,6 @@ public class CommandManager implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
-        if(!(sender instanceof Player)) {
-            plugin.logger().info("[" + plugin.getDescription().getName() + "]: " + "Only players can execute this command!");
-            return true;
-        }
-
-        Player player = (Player) sender;
 
         if(command.getLabel().equals("galact") || command.getLabel().equals("gal")) {
 
@@ -35,17 +29,23 @@ public class CommandManager implements CommandExecutor {
             String arg = (args.length > 1) ? args[1] : "";
 
             switch (cmd) {
+                case "reload":
+                    reloadConfig(sender);
+                    break;
+                case "setrate":
+                    setExchangeRate(sender, arg);
+                    break;
                 case "balance":
-                    viewBalance(player, arg);
+                    viewBalance(sender, arg);
                     break;
                 case "exchange":
-                    exchangeCurrency(player, arg);
+                    exchangeCurrency(sender, arg);
                     break;
-                case "course":
-                    viewCourse(player);
+                case "rate":
+                    viewExchangeRate(sender);
                     break;
                 default:
-                    helpCommand(player);
+                    helpCommand(sender);
             }
 
             return true;
@@ -54,52 +54,68 @@ public class CommandManager implements CommandExecutor {
         }
     }
 
-    private void helpCommand(Player player) {
+    private void helpCommand(CommandSender sender) {
 
         String[] help = {
                 plugin.getLocale().getString("help.balance"),
-                plugin.getLocale().getString("help.course"),
+                plugin.getLocale().getString("help.rate"),
                 plugin.getLocale().getString("help.exchange")
         };
 
-        sendMessage(player, help);
+        sendMessage(sender, help);
     }
 
-    private void viewBalance(Player player, String arg) {
+    private boolean viewBalance(CommandSender sender, String arg) {
+
         if(arg.isEmpty()) {
+            if(!(sender instanceof Player)) {
+                plugin.logger().info("[" + plugin.getDescription().getName() + "]: " + "Only players can execute this command for yourself!");
+                return true;
+            }
+
+            Player player = (Player) sender;
             sendMessage(player, plugin.getLocale().getString("balance.you", format("%.2f", DataBase.getBalance(player.getName())), Config.getCurrencySign()));
-        } else if(arg.equalsIgnoreCase(player.getName())) {
-            sendMessage(player, plugin.getLocale().getString("balance.you", format("%.2f", DataBase.getBalance(player.getName())), Config.getCurrencySign()));
-        } else if(player.hasPermission("galactmoney.balance.other")) {
+        } else if((sender instanceof Player) && arg.equalsIgnoreCase(sender.getName())) {
+            sendMessage(sender, plugin.getLocale().getString("balance.you", format("%.2f", DataBase.getBalance(sender.getName())), Config.getCurrencySign()));
+        } else if(!(sender instanceof Player) || sender.hasPermission("galactmoney.balance.other")) {
             Player player2 = plugin.getServer().getPlayer(arg);
             if(!player2.isEmpty()) {
-                sendMessage(player, plugin.getLocale().getString("balance.other", player2.getDisplayName(), format("%.2f", DataBase.getBalance(player.getName())), Config.getCurrencySign()));
+                sendMessage(sender, plugin.getLocale().getString("balance.other", player2.getDisplayName(), format("%.2f", DataBase.getBalance(player2.getName())), Config.getCurrencySign()));
             } else {
-                sendMessage(player, plugin.getLocale().getString("player.not_found", arg));
+                sendMessage(sender, plugin.getLocale().getString("player.not_found", arg));
             }
         } else {
-            sendMessage(player, plugin.getLocale().getString("error.not_permission"));
+            sendMessage(sender, plugin.getLocale().getString("error.not_permission"));
         }
+
+        return true;
     }
 
-    private void viewCourse(Player player) {
-        sendMessage(player, plugin.getLocale().getString("course", Config.getCurrencySign(), format("%.2f", Config.getCurrencyCourse())));
+    private boolean viewExchangeRate(CommandSender sender) {
+        sendMessage(sender, plugin.getLocale().getString("exchange.rate", Config.getCurrencySign(), format("%.2f", Config.getExchangeRate())));
+        return true;
     }
 
-    private void exchangeCurrency(Player player, String arg) {
-        if(player.hasPermission("galactmoney.exchange")) {
+    private boolean exchangeCurrency(CommandSender sender, String arg) {
+        if(!(sender instanceof Player)) {
+            plugin.logger().info("[" + plugin.getDescription().getName() + "]: " + "Only players can execute this command for yourself!");
+            return true;
+        }
+
+        if(sender.hasPermission("galactmoney.exchange")) {
             if(arg.isEmpty()) {
-                sendMessage(player, plugin.getLocale().getString("exchange.get_amount"));
+                sendMessage(sender, plugin.getLocale().getString("exchange.get_amount"));
             } else {
                 if(arg.matches("^\\d{1,3}(\\.\\d{1,2})?$")) {
                     double amount = Double.parseDouble(arg);
-                    double balance = DataBase.getBalance(player.getName());
+                    double balance = DataBase.getBalance(sender.getName());
                     amount = Math.min(balance, amount);
 
                     if(amount > 0) {
-                        double excAmount = amount * Config.getCurrencyCourse();
+                        double excAmount = amount * Config.getExchangeRate();
 
-                        if(DataBase.reduceBalance(player.getName(), amount)) {
+                        if(DataBase.reduceBalance(sender.getName(), amount)) {
+                            Player player = (Player) sender;
                             EconomyResponse r = plugin.getEconomy().depositPlayer(player, excAmount);
                             if(r.transactionSuccess()) {
                                 sendMessage(player, plugin.getLocale().getString("exchange.done", Config.getCurrencySign() + amount, plugin.getEconomy().format(r.balance)));
@@ -109,18 +125,38 @@ public class CommandManager implements CommandExecutor {
                                 plugin.logger().info("[" + plugin.getDescription().getName() + "]: " + format("Аn error occurred while trying to exchange a player %s: %s", player.getDisplayName(), r.errorMessage));
                             }
                         } else {
-                            sendMessage(player, plugin.getLocale().getString("error.unknown"));
+                            sendMessage(sender, plugin.getLocale().getString("error.unknown"));
                         }
                     } else {
-                        sendMessage(player, plugin.getLocale().getString("error.invalid_number"));
+                        sendMessage(sender, plugin.getLocale().getString("error.invalid_number"));
                     }
                 } else {
-                    sendMessage(player, plugin.getLocale().getString("error.invalid_number"));
+                    sendMessage(sender, plugin.getLocale().getString("error.invalid_number"));
                 }
             }
         } else {
-            sendMessage(player, plugin.getLocale().getString("error.not_permission"));
+            sendMessage(sender, plugin.getLocale().getString("error.not_permission"));
         }
+
+        return true;
+    }
+
+    private void reloadConfig(CommandSender sender) {
+        if(sender.hasPermission("galactmoney.reload")) {
+            plugin.config().reload();
+            sendMessage(sender, plugin.getLocale().getString("plugin.reload"));
+        } else sendMessage(sender, plugin.getLocale().getString("error.not_permission"));
+    }
+
+    private void setExchangeRate(CommandSender sender, String arg) {
+        if(!(sender instanceof Player) || sender.hasPermission("galactmoney.setrate")) {
+            if(arg.matches("^\\d+(\\.\\d{1,2})?$")) {
+                double rate = Double.parseDouble(arg);
+                Config.setExchangeRate(rate);
+                plugin.config().save();
+                sendMessage(sender, plugin.getLocale().getString("exchange.rate.set", format("%.2f", rate)));
+            } else sendMessage(sender, plugin.getLocale().getString("error.invalid_number"));
+        } sendMessage(sender, plugin.getLocale().getString("error.not_permission"));
     }
 
     private void sendMessage(CommandSender sender, String msg)
