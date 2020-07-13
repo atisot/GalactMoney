@@ -11,5 +11,5 @@ connect:
   balance_column: balance
   username_column: name
 exchange:
-  rate:  100.00 # exchange rate per 1 of this currency
+  rate: 100.00 # exchange rate per 1 of this currency
 sign: ₲
