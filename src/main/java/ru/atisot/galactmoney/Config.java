@@ -18,7 +18,6 @@ public class Config {
     public Config(GalactMoney plugin) {
         this.plugin = plugin;
         this.init();
-        this.plugin.logger().info("[" + plugin.getDescription().getName() + "]: Plugin has been initialized.");
     }
 
     private void init() {
@@ -146,6 +145,7 @@ public class Config {
         plugin.saveConfig();
     }
 
+    // TODO не обновляет данные
     public void reload() {
         plugin.setConfig(new Config(plugin));
         plugin.reloadConfig();
