@@ -36,6 +36,9 @@ public class CommandManager implements CommandExecutor {
                 case "setrate":
                     setExchangeRate(sender, arg);
                     break;
+                case "setsign":
+                    setCurrencySign(sender, arg);
+                    break;
                 case "balance":
                     viewBalance(sender, arg);
                     break;
@@ -62,7 +65,8 @@ public class CommandManager implements CommandExecutor {
                 plugin.getLocale().getString("help.rate"),
                 plugin.getLocale().getString("help.exchange"),
                 plugin.getLocale().getString("help.reload"),
-                plugin.getLocale().getString("help.setrate")
+                plugin.getLocale().getString("help.setrate"),
+                plugin.getLocale().getString("help.setsign")
         };
 
         sendMessage(sender, help);
@@ -159,6 +163,15 @@ public class CommandManager implements CommandExecutor {
                 plugin.config().save();
                 sendMessage(sender, plugin.getLocale().getString("exchange.rate.set", format("%.2f", rate)));
             } else sendMessage(sender, plugin.getLocale().getString("error.invalid_number"));
+        } else sendMessage(sender, plugin.getLocale().getString("error.not_permission"));
+    }
+
+    private void setCurrencySign(CommandSender sender, String arg) {
+        if(!(sender instanceof Player) || sender.hasPermission("galactmoney.setsign")) {
+            String sign = arg.trim();
+            Config.setCurrencySign(sign);
+            plugin.config().save();
+            sendMessage(sender, plugin.getLocale().getString("currency.sign.set", format("%s", sign)));
         } else sendMessage(sender, plugin.getLocale().getString("error.not_permission"));
     }
 

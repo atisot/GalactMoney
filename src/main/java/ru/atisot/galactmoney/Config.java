@@ -130,6 +130,10 @@ public class Config {
         return currencySign;
     }
 
+    public static void setCurrencySign(String sign) {
+        currencySign = sign;
+    }
+
     public static double getExchangeRate() {
         return exchangeRate;
     }
@@ -144,5 +148,6 @@ public class Config {
 
     public void reload() {
         plugin.setConfig(new Config(plugin));
+        plugin.reloadConfig();
     }
 }
