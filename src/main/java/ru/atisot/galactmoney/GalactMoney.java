@@ -70,4 +70,8 @@ public class GalactMoney extends JavaPlugin {
     public Config config() {
         return config;
     }
+
+    public void setConfig(Config cfg) {
+        config = cfg;
+    }
 }

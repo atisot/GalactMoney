@@ -143,6 +143,6 @@ public class Config {
     }
 
     public void reload() {
-        init();
+        plugin.setConfig(new Config(plugin));
     }
 }
