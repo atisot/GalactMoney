@@ -46,7 +46,7 @@ public class GalactMoneyExpansion extends PlaceholderExpansion {
 
         // %galactmoney_balance%
         if(identifier.equals("balance")){
-            return format("%.0f", GalactMoneyAPI.getBalance(player));
+            return format("%d", (int) GalactMoneyAPI.getBalance(player));
         }
 
         // %galactmoney_balance_{playername}%
@@ -56,7 +56,7 @@ public class GalactMoneyExpansion extends PlaceholderExpansion {
                 String playername = identifier.replace("balance_", "");
                 OfflinePlayer player2 = plugin.getServer().getOfflinePlayer(playername);
                 if(player2 != null) {
-                    return format("%.0f", GalactMoneyAPI.getBalance(player2));
+                    return format("%d", (int) GalactMoneyAPI.getBalance(player2));
                 }
             } catch (Exception e) {
                 plugin.logger().warning(e.getMessage());
@@ -66,7 +66,7 @@ public class GalactMoneyExpansion extends PlaceholderExpansion {
 
         // %galactmoney_rate%
         if(identifier.equals("rate")){
-            return format("%.0f", GalactMoneyAPI.getExchangeRate());
+            return format("%d", (int) GalactMoneyAPI.getExchangeRate());
         }
 
         // %galactmoney_sign%
