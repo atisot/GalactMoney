@@ -36,6 +36,8 @@ public class GalactMoney extends JavaPlugin {
         } else {
             logger().info("Could not find PlaceholderAPI! Plugin placeholders can not work without it!");
         }
+
+        logger().info("[" + this.getDescription().getName() + "]: Plugin has been initialized.");
     }
 
     @Override
