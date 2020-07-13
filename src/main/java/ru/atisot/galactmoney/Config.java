@@ -84,8 +84,6 @@ public class Config {
         } else {
             exchangeRate = plugin.getConfig().getDouble("exchange.rate");
         }
-
-        plugin.saveConfig();
     }
 
     public static String getPrefix() {
