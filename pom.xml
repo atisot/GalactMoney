@@ -67,6 +67,10 @@
             <id>placeholderapi</id>
             <url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
+        <repository>
+        <id>lib</id>
+        <url>file:///${project.basedir}/lib</url>
+    </repository>
     </repositories>
 
     <dependencies>
@@ -75,7 +79,6 @@
             <artifactId>craftbukkit</artifactId>
             <version>1.7.10-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
-            <systemPath>${project.basedir}/lib/craftbukkit-1.7.10-R0.1-20140808.005431-8.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
